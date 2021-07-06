@@ -1,8 +1,4 @@
-﻿
-
-using System;
-
-namespace API.Errors
+﻿namespace API.Errors
 {
     public class ApiResponse
     {
