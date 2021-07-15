@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {IPagination} from "../shared/models/pagination";
 import {IBrand} from "../shared/models/brand";
@@ -10,11 +10,12 @@ import {ShopParams} from "../shared/models/shopParams";
   providedIn: 'root'
 })
 export class ShopService {
- baseUrl = 'https://localhost:5001/api/';
+  baseUrl = 'https://localhost:5001/api/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getProducts(shopParams: ShopParams){
+  getProducts(shopParams: ShopParams) {
     let params = new HttpParams();
 
     if (shopParams.brandId !== 0) {
@@ -23,6 +24,10 @@ export class ShopService {
 
     if (shopParams.typeId !== 0) {
       params = params.append('typeId', shopParams.typeId.toString());
+    }
+
+    if (shopParams.search) {
+      params = params.append('search', shopParams.search);
     }
 
     params = params.append('sort', shopParams.sort);
@@ -37,11 +42,11 @@ export class ShopService {
       );
   }
 
-  getBrands(){
+  getBrands() {
     return this.http.get<IBrand[]>(this.baseUrl + 'products/brands');
   }
 
-  getTypes(){
+  getTypes() {
     return this.http.get<IType[]>(this.baseUrl + 'products/types');
   }
 }
