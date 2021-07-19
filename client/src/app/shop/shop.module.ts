@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ShopComponent } from './shop.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import {SharedModule} from "../shared/shared.module";
-import { PagerComponent } from './pagination/pager.component';
 import { ProductsDetailsComponent } from './products-details/products-details.component';
 import {RouterModule} from "@angular/router";
+import {ShopRoutingModule} from "./shop-routing.module";
 
 
 
@@ -14,7 +14,8 @@ import {RouterModule} from "@angular/router";
     imports: [
         CommonModule,
         SharedModule,
-        RouterModule
+        RouterModule,
+        ShopRoutingModule
     ],
     exports: [
       ShopComponent
