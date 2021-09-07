@@ -4,13 +4,15 @@ using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using Infrastructure.Services;
 
 namespace API.Extensions
 {
     public static class ApplicationServicesExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services) 
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
