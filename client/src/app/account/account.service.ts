@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, of, ReplaySubject} from 'rxjs';
 import {IUser} from '../shared/models/user';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
@@ -11,17 +11,18 @@ import {Router} from '@angular/router';
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
-  private currentUserSource = new BehaviorSubject<IUser>(null);
+  private currentUserSource = new ReplaySubject<IUser>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  getCurrentUserValue() {
-    return this.currentUserSource.value;
-  }
-
   loadCurrentUser(token: string) {
+    if (token === null) {
+      this.currentUserSource.next(null);
+      return of(null);
+    }
+
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
 
@@ -47,10 +48,11 @@ export class AccountService {
   }
 
   register(values: any) {
-    return this.http.post(this.baseUrl + '', values).pipe(
+    return this.http.post(this.baseUrl + 'account/register', values).pipe(
       map((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
+          this.currentUserSource.next(user);
         }
       })
     );
@@ -63,6 +65,6 @@ export class AccountService {
   }
 
   checkEmailExists(email: string) {
-    return this.http.get(this.baseUrl = '/account/emailexists?email=' + email);
+    return this.http.get(this.baseUrl + 'account/emailExists?email=' + email);
   }
 }
