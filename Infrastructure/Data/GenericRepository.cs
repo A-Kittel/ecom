@@ -1,14 +1,14 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
-using Core.Specefications;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Specifications;
 
 namespace Infrastructure.Data
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class  GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly StoreContext _storeContext;
 
@@ -42,6 +42,23 @@ namespace Infrastructure.Data
         {
             return await ApplySpecification(spec).CountAsync();
         }
+
+        public void Add(T entity)
+        {
+            _storeContext.Set<T>().Add(entity);
+        }
+
+        public void Update(T entity)
+        {
+            _storeContext.Set<T>().Attach(entity);
+            _storeContext.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void Delete(T entity)
+        {
+            _storeContext.Set<T>().Remove(entity); 
+        }
+
         private IQueryable<T> ApplySpecification(ISpecification<T> spec) 
         {
             return SpecificationEvaluator<T>.GetQuery(_storeContext.Set<T>().AsQueryable(), spec);

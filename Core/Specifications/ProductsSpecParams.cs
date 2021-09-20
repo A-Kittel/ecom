@@ -1,4 +1,4 @@
-﻿namespace Core.Specefications
+﻿namespace Core.Specifications
 {
     public class ProductsSpecParams
     {
