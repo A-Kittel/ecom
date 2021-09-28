@@ -1,1 +1,40 @@
-<p>orders works!</p>
+<ng-container>
+  <div class="container mt-2">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="border-0 text-center" scope="col">
+            <div class="p-2 px-3 text-uppercase">Order</div>
+          </th>
+          <th class="border-0 text-center" scope="col">
+            <div class="p-2 px-3 text-uppercase">Date</div>
+          </th>
+          <th class="border-0 text-center" scope="col">
+            <div class="p-2 px-3 text-uppercase">Total</div>
+          </th>
+          <th class="border-0 text-center" scope="col">
+            <div class="p-2 px-3 text-uppercase">Status</div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  *ngFor="let order of orders" routerLink="/orders/{{order.id}}" style="cursor: pointer">
+          <td class="align-middle text-center">
+            <h4><strong># {{order.id}}</strong></h4>
+          </td>
+          <td class="align-middle text-center">
+            <h4>{{order.orderDate | date: 'medium'}}</h4>
+          </td>
+          <td class="align-middle text-center">
+            <h4>{{order.total | currency}}</h4>
+          </td>
+          <td class="align-middle text-center">
+            <h4>{{order.status}}</h4>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>
