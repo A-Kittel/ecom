@@ -4,7 +4,7 @@ import {BasketService} from '../../basket/basket.service';
 import {CheckoutService} from '../checkout.service';
 import {ToastrService} from 'ngx-toastr';
 import {IBasket} from '../../shared/models/basket';
-import {IOrder} from '../../shared/models/Order';
+import {IOrder} from '../../shared/models/order';
 import {NavigationExtras, Router} from '@angular/router';
 
 @Component({

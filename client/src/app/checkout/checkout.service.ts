@@ -3,7 +3,7 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {IDeliveryMethod} from '../shared/models/DeliveryMethod';
 import {map} from 'rxjs/operators';
-import {IOrderToCreate} from '../shared/models/Order';
+import {IOrderToCreate} from '../shared/models/order';
 
 @Injectable({
   providedIn: 'root'
