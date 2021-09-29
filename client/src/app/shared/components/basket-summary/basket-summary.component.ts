@@ -13,7 +13,7 @@ export class BasketSummaryComponent implements OnInit {
   @Output() remove: EventEmitter<IBasketItem> = new EventEmitter<IBasketItem>();
   @Input() isBasket = true;
   @Input() isOrder = false;
-  @Input() items: IBasketItem[] | IOrderItem[] = [];
+  @Input() items: any;
 
 
   constructor() {
